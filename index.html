@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simple BPMN Diagram</title>
+  <title>BPMN Diagram Test</title>
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js@10.0.0/dist/assets/diagram-js.css">
   <link rel="stylesheet" href="https://unpkg.com/bpmn-js@10.0.0/dist/assets/bpmn-font/css/bpmn.css">
   <style>
@@ -9,24 +9,32 @@
   </style>
 </head>
 <body>
+  <h1>Hello, BPMN!</h1>
   <div id="canvas"></div>
+  
+  <!-- Подключение bpmn-js -->
   <script src="https://unpkg.com/bpmn-js@10.0.0/dist/bpmn-modeler.development.js"></script>
   <script>
+    // Инициализация BPMN
     const modeler = new BpmnJS({ container: '#canvas' });
 
+    // Минимальная XML-диаграмма
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
     <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL">
       <bpmn:process id="Process_1" isExecutable="false">
         <bpmn:startEvent id="StartEvent_1"/>
         <bpmn:sequenceFlow id="flow1" sourceRef="StartEvent_1" targetRef="Task_1"/>
-        <bpmn:task id="Task_1" name="Task A"/>
+        <bpmn:task id="Task_1" name="Sample Task"/>
         <bpmn:sequenceFlow id="flow2" sourceRef="Task_1" targetRef="EndEvent_1"/>
         <bpmn:endEvent id="EndEvent_1"/>
       </bpmn:process>
     </bpmn:definitions>`;
 
-    modeler.importXML(xml).catch(err => {
-      console.error('Ошибка при загрузке BPMN диаграммы:', err);
+    // Импорт XML и обработка ошибок
+    modeler.importXML(xml).then(() => {
+      console.log("Диаграмма успешно загружена");
+    }).catch(err => {
+      console.error("Ошибка при загрузке BPMN диаграммы:", err);
     });
   </script>
 </body>
